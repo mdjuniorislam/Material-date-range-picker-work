@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.5.2/solar/bootstrap.min.css">
+           <link rel="stylesheet" type="text/css" href="../dist/duDatepicker.min.css">
+           	<link rel="stylesheet" type="text/css" href="../dist/duDatepicker-theme.css">
+
+    <title>duDatepicker: Material Inspired Date & Date Range Pickert</title>
+
+<style type="text/css">
+		html,
+		body {
+			min-height: 100%;
+		}
+		#logger { margin-top: 24px; }
+		#logger span { display: block; }
+		#logger textarea {
+			width: 400px;
+			max-width: 100%;
+			margin-top: 4px;
+			resize: none;
+		}
+		h2 { margin: 3rem auto; }
+        h1 { margin-top: 150px; }
+        
+    </style>
+    <style>
+        .text h1 {
+    font-size: 100px;
+    text-align: center;
+    text-decoration:bold;
+    color:#26FF35;
+ 
+text-shadow: 0 1px 0px #378ab4, 1px 0 0px #5dabcd, 1px 2px 1px #378ab4, 2px 1px 1px #5dabcd, 2px 3px 2px #378ab4, 3px 2px 2px #5dabcd, 3px 4px 2px #378ab4, 4px 3px 3px #5dabcd, 4px 5px 3px #378ab4, 5px 4px 2px #5dabcd, 5px 6px 2px #378ab4, 6px 5px 2px #5dabcd, 6px 7px 1px #378ab4, 7px 6px 1px #5dabcd, 7px 8px 0px #378ab4, 8px 7px 0px #5dabcd;
+
+}
+
+.text h2 {
+    font-size: 100px;
+    text-align: center;
+    text-decoration:bold;
+    color:#FF172E;
+    text-shadow: 0 1px 0px #378ab4, 1px 0 0px #5dabcd, 1px 2px 1px #378ab4, 2px 1px 1px #5dabcd, 2px 3px 2px #378ab4, 3px 2px 2px #5dabcd, 3px 4px 2px #378ab4, 4px 3px 3px #5dabcd, 4px 5px 3px #378ab4, 5px 4px 2px #5dabcd, 5px 6px 2px #378ab4, 6px 5px 2px #5dabcd, 6px 7px 1px #378ab4, 7px 6px 1px #5dabcd, 7px 8px 0px #378ab4, 8px 7px 0px #5dabcd;
+
+}
+
+    </style>
+
+</head>
+<body>
+    <div class="text">
+    <h1>LOVE THIS CODER'S CHINIMINI</h1>
+    <h2>THANKS SHAKIB VAI</h2>
+    </div>
+
+<div class="container">
+		<h1>duDatepicker: Material Inspired Date & Date Range Picker Examples</h1>
+		<h2>Date Range Picker</h2>
+		<table id="mycalendar"></table>
+		<input type="text" id="datepicker1" class="form-control">
+		<div id="logger">
+			<span>Logger:</span>
+			<textarea id="loggerTxt" rows="10" disabled></textarea>
+		</div>
+		<h2>Dark Date Range Picker</h2>
+		<input type="text" id="daterange" data-theme="dark" class="form-control">
+		<input type="text" id="range-from" class="form-control">
+		<input type="text" id="range-to" class="form-control">
+
+		<h2>Inline Date Picker</h2>
+
+
+		<input type="text" id="datepicker3" class="form-control">
+		<h2>Dark Inline Date Picker</h2>
+		<input type="text" id="datepicker2" data-theme="dark" class="form-control">
+
+    </div>
+    
+    <script type="text/javascript" src="../dist/duDatepicker.min.js"></script>
+    
+    	<script type="text/javascript">
+		function log (message) {
+			document.querySelector('#loggerTxt').value = message
+		}
+
+		window.onload = function () {
+			document.querySelector('#datepicker1').addEventListener('datechanged', function(e) {
+				console.log('New date', e.data, this.value)
+			})
+
+			duDatepicker('#datepicker1', {
+				format: 'mmmm d, yyyy', range: true, clearBtn: true,
+				
+				events: {
+					dateChanged: function (data) {
+						log('From: ' + data.dateFrom + '\nTo: ' + data.dateTo)
+					},
+					onRangeFormat: function (from, to) {
+						var fromFormat = 'mmmm d, yyyy', toFormat = 'mmmm d, yyyy';
+
+						if (from.getMonth() === to.getMonth() && from.getFullYear() === to.getFullYear()) {
+							fromFormat = 'mmmm d'
+							toFormat = 'd, yyyy'
+						} else if (from.getFullYear() === to.getFullYear()) {
+							fromFormat = 'mmmm d'
+							toFormat = 'mmmm d, yyyy'
+						}
+
+						return from.getTime() === to.getTime() ?
+							this.formatDate(from, 'mmmm d, yyyy') :
+							[this.formatDate(from, fromFormat), this.formatDate(to, toFormat)].join('-');
+					}
+				}
+			})
+
+			duDatepicker('#datepicker2, #datepicker3', { auto: true, inline: true,
+				events: {
+					dateChanged: function (data) {
+						log('Date:' + data.date)
+					}
+				}
+			})
+
+			duDatepicker('#daterange', {
+				range: true, format: 'mmmm d, yyyy', outFormat: 'yyyy-mm-dd', fromTarget: '#range-from', toTarget: '#range-to',
+				clearBtn: true, theme: 'yellow', maxDate: 'today'
+				
+			})
+		}
+    </script>
+    
+    <br>
+     <br>
+      <br>
+       <br>
+</body>
+</html>
